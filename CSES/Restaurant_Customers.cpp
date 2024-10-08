@@ -1,57 +1,32 @@
-/**
- *    author:  compounding
- *    created: 2024-09-23 00:22:21
- **/
 #include <bits/stdc++.h>
-using namespace std;
-mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
-#define NeedForSpeed                  \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL);                    \
-    cout.tie(NULL);
-#define int long long
-#define all(x) (x).begin(), (x).end()
-typedef vector<int> vi;
-typedef vector<bool> vb;
-typedef vector<vi> vvi;
-typedef vector<pair<int, int>> vpi;
-#define f first
-#define s second
-#define endl "\n"
-const int mod = 1000000007;
-int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
-void solve()
-{
+using namespace std; 
+typedef long long ll;
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     int n;
-    cin >> n;
-    vpi v;
-    // classic line sweep
-    while (n--)
-    {
-        int start, end;
-        cin >> start >> end;
-        v.push_back({start, 1});
-        v.push_back({end + 1, -1});
+    cin>>n;
+    vector<pair<int,char>>customers;
+    for(int i=0;i<n;i++){
+        int x,y;
+        cin>>x>>y;
+        customers.push_back({x,'a'});
+        customers.push_back({y,'d'});
     }
-    sort(all(v));
-    int ans = 0, curr = 0;
-    for (auto i : v)
-    {
-        curr += i.s;
-        ans = max(ans, curr);
+    sort(customers.begin(),customers.end());
+    ll cnt=0;
+    ll maxcnt=0;
+    for(auto& i:customers){
+        if(i.second=='a'){
+            cnt++;
+        }
+        else {
+            cnt--;
+        }
+        if(cnt>maxcnt){
+            maxcnt=cnt;
+        }
     }
-    cout << ans << endl;
-    return;
-}
-
-signed main()
-{
-    NeedForSpeed;
-    int t = 1;
-    // cin >> t;
-    while (t--)
-    {
-        solve();
-    }
+    cout<<maxcnt;
     return 0;
 }
